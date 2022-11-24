@@ -1,15 +1,24 @@
 const pool = require('../../db_connect')
 
 const addUser = (req, res) => {
-  const { u_id, name, email, password, phonenumber  } = req.body
   
-  pool.query('INSERT INTO users (u_id, name, email, password, phonenumber) VALUES ($1, $2, $3, $4, $5) RETURNING *', [u_id, name, email, password, phonenumber], (error, results) => {
-    if (error) {
-      res.json({"success":false, "message": error.detail})
-      throw error
-    }
-    res.status(201).json({"success": true, "message": "User Added Successfully", "u_id": u_id })
-  })
+  const name = req.body.name
+  const email = req.body.email
+  const password = req.body.password
+  const phonenumber = req.body.phonenumber
+  if(name == null || email == null || password == null || phonenumber == null)
+  {
+    res.json({"success":false, "message": "empty field"})
+  }
+  else{
+    pool.query('INSERT INTO users ( name, email, password, phonenumber) VALUES ($1, $2, $3, $4) RETURNING *', [name, email, password, phonenumber], (error, results) => {
+      if (error) {
+        res.json({"success":false, "message": error.detail})
+        throw error
+      }
+      res.status(201).json({"success": true, "message": "User Added Successfully", "u_id": results.rows[0].u_id })
+    })
+  }
 }
 
 const updateUser = (req, res) => {
@@ -47,7 +56,7 @@ const getUsers = (req, res) => {
 
 const getUserById = (req, res) => {
   const u_id = parseInt(req.params.u_id)
-  
+  console.log("Called");
   pool.query('SELECT * FROM users WHERE u_id = $1', [u_id], (error, results) => {
     if (error) {
       throw error
@@ -62,15 +71,23 @@ const getUserById = (req, res) => {
 const emailExists = (req, res) => {
   const email = req.body.email
   
-  pool.query('SELECT * FROM users WHERE email = $1', [email], (error, results) => {
+  if(email == '')
+  {
+    
+    res.json({"success":false, "message": "empty field"})
+  }
+  else{
+   
+    pool.query('SELECT * FROM users WHERE email = $1', [email], (error, results) => {
     if (error) {
       throw error
     }
     if(results.rowCount == 0)
       res.status(200).json({"success": false, "message": "Email Doesnt exist"})
     else
-     res.status(200).json({"success": true, "message": "Email Already exists"})
-  })
+    res.status(200).json({"success": true, "message": "Email Already exists"})
+    })
+  }
 }
 
 const verifyPassword = (req, res) => {

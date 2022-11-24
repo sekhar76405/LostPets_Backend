@@ -5,8 +5,8 @@ const petscontroller = require('../controller/petscontroller')
 //user routes
 router.get("/getusers", usercontroller.getUsers);
 router.get("/getusers/:u_id", usercontroller.getUserById);
-router.get("/emailexists", usercontroller.emailExists);
 
+router.post("/emailexists", usercontroller.emailExists);
 router.post("/adduser", usercontroller.addUser);
 router.post("/verifypassword", usercontroller.verifyPassword);
 router.post("/updateuser", usercontroller.updateUser);

@@ -4,6 +4,7 @@ const port = process.env.PORT || 5000;
 const app = express();
 const pool = require('./db_connect');
 const routes = require('./src/routes/routes');
+var cors = require('cors');
 
 app.use(bodyParser.json());
 app.use(
@@ -11,7 +12,11 @@ app.use(
       extended: true,
     })
 );
-
+app.use(cors({
+  origin: ["http://localhost:3000", "http://localhost:5000", "*"],
+  methods: ["GET", "POST"],
+})
+);
 app.use("", routes);
 
 app.listen(port, ()=>{console.log("Server listening on port " + port)});
