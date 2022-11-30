@@ -3,7 +3,7 @@ CREATE TABLE users (
   name VARCHAR(40),
   email VARCHAR(40),
   password VARCHAR(40),
-  phonenumber INT
+  phonenumber BIGINT
 );
 
 CREATE TABLE pets (

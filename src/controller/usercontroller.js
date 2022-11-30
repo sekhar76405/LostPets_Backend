@@ -23,8 +23,10 @@ const addUser = (req, res) => {
 
 const updateUser = (req, res) => {
   //update based on u_id
-  const { u_id, name, email, password, phonenumber  } = req.body
-
+  //const { u_id, name, email, password, phonenumber  } = req.body
+  const u_id = req.body.u_id
+  const name = req.body.name
+  const phonenumber = req.body.phonenumber
 
   pool.query('SELECT * FROM users WHERE u_id = $1', [u_id], (error, results) => {
     if (error) {
@@ -34,7 +36,7 @@ const updateUser = (req, res) => {
       res.status(200).json({"success": false, "message": "User not found"})
     else
     {
-      pool.query('UPDATE users SET name = $2, password = $3, phonenumber = $4 WHERE u_id = $1 ', [u_id, name, password, phonenumber], (error, results) => {
+      pool.query('UPDATE users SET name = $2, phonenumber = $3 WHERE u_id = $1 ', [u_id, name, phonenumber], (error, results) => {
           if (error) {
             res.json({"success":false, "message": error})
             throw error
@@ -73,7 +75,6 @@ const emailExists = (req, res) => {
   
   if(email == '')
   {
-    
     res.json({"success":false, "message": "empty field"})
   }
   else{
@@ -85,7 +86,7 @@ const emailExists = (req, res) => {
     if(results.rowCount == 0)
       res.status(200).json({"success": false, "message": "Email Doesnt exist"})
     else
-    res.status(200).json({"success": true, "message": "Email Already exists"})
+      res.status(200).json({"success": true, "message": "Email Already exists"})
     })
   }
 }

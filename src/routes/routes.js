@@ -14,7 +14,9 @@ router.post("/updateuser", usercontroller.updateUser);
 //pets routes
 router.get("/getpets", petscontroller.getPets);
 router.get("/getpets/:p_id", petscontroller.getPetById);
+router.get("/getownerpets/:o_id", petscontroller.getOwnerPets)
 
+router.post('/pidexists',petscontroller.pidExists);
 router.post("/addpet", petscontroller.addPet);
 router.post("/updatepet", petscontroller.updatePet);
 
