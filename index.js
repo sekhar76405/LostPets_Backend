@@ -39,7 +39,7 @@ io.on("connection", (socket)=>{
   console.log("connection established with id: " + socket.id)
 
   socket.on("send_msg", (data)=>{
-    socket.to(data.room).emit("recieve_msg", data)
+    socket.to(data.room).emit("receive_msg", data)
   })
 
   socket.on("join_room", (data)=>{

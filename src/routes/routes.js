@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const usercontroller = require('../controller/usercontroller')
 const petscontroller = require('../controller/petscontroller')
+const chatcontroller = require('../controller/chatcontroller')
 
 //user routes
 router.get("/getusers", usercontroller.getUsers);
@@ -19,5 +20,15 @@ router.get("/getownerpets/:o_id", petscontroller.getOwnerPets)
 router.post('/pidexists',petscontroller.pidExists);
 router.post("/addpet", petscontroller.addPet);
 router.post("/updatepet", petscontroller.updatePet);
+
+//request routes
+router.post("/sendrequest", chatcontroller.sendRequest);
+router.post("/acceptrequest", chatcontroller.acceptRequest);
+router.post("/getrequests", chatcontroller.getRequests);
+
+//chat routes
+router.post("/newchat", chatcontroller.newChat);
+router.post("/getuserchats", chatcontroller.getUserChats);
+router.post("/getchatbyid", chatcontroller.getChatById);
 
 module.exports = router;

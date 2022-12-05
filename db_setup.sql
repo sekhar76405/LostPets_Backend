@@ -18,3 +18,24 @@ CREATE TABLE pets (
   license VARCHAR
 );
 
+
+CREATE TABLE requests (
+  r_id serial PRIMARY KEY, 
+  sender_id VARCHAR(10), 
+  sender_name VARCHAR(40),
+  receiver_id VARCHAR(10),
+  receiver_name VARCHAR(40)
+);
+
+CREATE TABLE chats (
+  c_id VARCHAR(10), 
+  sender_id VARCHAR(10), 
+  sender_name VARCHAR(40),
+  receiver_id VARCHAR(10),
+  receiver_name VARCHAR(40)
+);
+
+-- CREATE TABLE chat_history(
+--   c_id PRIMARY KEY, 
+--   history 
+-- );
