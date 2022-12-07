@@ -24,11 +24,13 @@ router.post("/updatepet", petscontroller.updatePet);
 //request routes
 router.post("/sendrequest", chatcontroller.sendRequest);
 router.post("/acceptrequest", chatcontroller.acceptRequest);
+router.post("/rejectrequest", chatcontroller.rejectRequest);
 router.post("/getrequests", chatcontroller.getRequests);
 
 //chat routes
 router.post("/newchat", chatcontroller.newChat);
 router.post("/getuserchats", chatcontroller.getUserChats);
 router.post("/getchatbyid", chatcontroller.getChatById);
+router.post("/updatechatbyid", chatcontroller.updateChatById);
 
 module.exports = router;

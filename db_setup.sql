@@ -35,7 +35,7 @@ CREATE TABLE chats (
   receiver_name VARCHAR(40)
 );
 
--- CREATE TABLE chat_history(
---   c_id PRIMARY KEY, 
---   history 
--- );
+CREATE TABLE chat_history(
+  c_id VARCHAR(10), 
+  history json
+);
