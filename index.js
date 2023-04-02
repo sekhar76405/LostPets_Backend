@@ -35,6 +35,16 @@ const io = new Server(server,{
     },
 })
 
+function leaveAllRooms(socket) {
+  var rooms = socket.rooms;
+  Object.keys(rooms).forEach(function(room) {
+      if (room != socket.id) {
+        socket.leave(room);
+      }
+      console.log("left all rooms")
+  });
+}
+
 io.on("connection", (socket)=>{
   console.log("connection established with id: " + socket.id)
 
@@ -42,9 +52,15 @@ io.on("connection", (socket)=>{
     socket.to(data.room).emit("receive_msg", data)
   })
 
-  socket.on("join_room", (data)=>{
-    console.log("joined room: " + data)
-    socket.join(data);
+  socket.on("join_room", (room)=>{
+    if (socket.lastRoom) {
+      socket.leave(socket.lastRoom);
+      socket.lastRoom = null;
+  }
+    console.log("joined room: " + room)
+    socket.join(room);
+    
+    socket.lastRoom = room;
   })
 
   socket.on("disconnect", (data)=>{

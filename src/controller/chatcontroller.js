@@ -146,7 +146,7 @@ const newChat = (req, res) => {
                                   throw error
                                 }
                                 else{
-                                  const history = {}
+                                  const history = {"msgList": []}
                                   pool.query('INSERT INTO chat_history (c_id, history) VALUES ($1, $2) RETURNING *', [c_id, history], (error, results4) => {
                                     if (error) {
                                       res.json({"success":false, "message": error})
@@ -207,8 +207,14 @@ const getChatById = (req, res) => {
           res.json({"success":false, "message": error})
           throw error
         }
-        
-        res.status(201).json({"success": true, "rows": results.rows[0].history.msgList})
+        if(results.rowCount == 0){
+          res.status(201).json({"success": false, "message": "chats not found before"})
+        }
+        else{
+          console.log(results.rows[0].history)
+          res.status(201).json({"success": true, "rows": results.rows[0].history})
+        }
+
       })
     }
 }
