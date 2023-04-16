@@ -69,5 +69,5 @@ io.on("connection", (socket)=>{
   })
 })
 
-const serverport = port+1
+const serverport = 5001
 server.listen(serverport, ()=>{console.log("server started on port " + serverport)})
