@@ -5,7 +5,7 @@ pipeline {
         stage('Pre-Env'){
             steps{
                 sh '''
-                sudo echo       "url_frontend="http://${IP}:3000"\nurl_backend="http://${IP}:5000"\nuser="postgres"\npassword="lostpets"\ndatabase="lostpets"\nhost="lostpets-db.cgtwrl4u4ygc.us-west-2.rds.amazonaws.com"\nport=5432" > /var/lib/jenkins/workspace/Backend/.env
+                sudo echo "url_frontend="http://${IP}:3000"\nurl_backend="http://${IP}:5000"\nuser="postgres"\npassword="lostpets"\ndatabase="lostpets"\nhost="lostpets-db.cgtwrl4u4ygc.us-west-2.rds.amazonaws.com"\nport=5432" > /var/lib/jenkins/workspace/Backend/.env
                 '''
             }
         }
